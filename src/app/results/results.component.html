@@ -1,0 +1,40 @@
+<section class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 mb-4">
+                <div class="border bg-white rounded p-3 shadow-sm filter-box">
+                    <div>
+                        <h5>Filter by Hotel name </h5>
+                        <input type="text" class="form-control" placeholder="Enter Hotel Name" [(ngModel)]="query">
+                    </div>
+                    <div class="my-4">
+                        <h5>Filter by rating</h5>
+                        <div *ngFor="let filterItem of filterItems; let i = index;">
+                            <label>
+                              <div>
+                                <input type="checkbox" [(ngModel)]="filterItem.checked" [value]="filterItem.value">
+                                <img *ngFor="let i of stars(filterItem.value)" src="assets/images/star.svg" alt="">
+                              </div>
+                              <span class="count">{{getCount(selectedHotels | searchFilter:query, filterItem.value)}}</span>
+                            </label>
+                          </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                
+                  
+                <div *ngIf="(selectedHotels | searchFilter:query | filter: { hotel_rating: ''} : checked() : false)?.length == 0"
+                    class="text-danger alert alert-danger text-center py-2">No results found</div>
+                <h5 class="mb-4" *ngIf="(selectedHotels | searchFilter:query | filter: { hotel_rating: ''} : checked() : false)?.length > 0">{{(selectedHotels |
+                    searchFilter:query | filter: { hotel_rating: ''} : checked() : false)?.length}} deals found in
+                    {{destination}}</h5>
+                <ng-container *ngFor="let hotel of selectedHotels | searchFilter: query | filter: { hotel_rating: ''} : checked() : false">
+                    <ng-container>
+                        <app-hotel [data]="hotel"></app-hotel>
+                    </ng-container>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</section>

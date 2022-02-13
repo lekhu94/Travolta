@@ -1,0 +1,13 @@
+.hotel {
+    h2 {
+        font-weight: 700;
+        font-size: 17px;
+    }
+}
+
+// `md` applies to small devices (landscape phones, less than 768px)
+@media (max-width: 767.98px) { 
+    .hotel {
+        flex-wrap: wrap;
+    }
+}
